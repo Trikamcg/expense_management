@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Management</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>CompanyName</h2>
+      <nav>
+        <ul>
+          <li onclick="showView('dashboard')">Dashboard</li>
+          <li onclick="showView('expenses')">Expenses</li>
+          <li onclick="showView('approvals')">Approvals</li>
+          <li onclick="showView('users')">Users</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <span id="user-role">Employee</span>
+        <button onclick="logout()">Logout</button>
+      </header>
+
+      <section id="dashboard" class="view active">
+        <h2>Welcome to Expense Manager</h2>
+        <p>Select a module from the sidebar.</p>
+      </section>
+
+      <section id="expenses" class="view">
+        <h2>Submit Expense</h2>
+        <input type="number" placeholder="Amount" />
+        <input type="text" placeholder="Category" />
+        <input type="text" placeholder="Description" />
+        <input type="date" />
+        <button>Submit</button>
+      </section>
+
+      <section id="approvals" class="view">
+        <h2>Pending Approvals</h2>
+        <ul id="approval-list"></ul>
+      </section>
+
+      <section id="users" class="view">
+        <h2>User Management</h2>
+        <p>Admin tools to manage roles and relationships.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
