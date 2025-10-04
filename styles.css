@@ -95,6 +95,33 @@ body {
     color: #fff;
     text-decoration: none;
     transition: color 0.2s;
+<<<<<<< HEAD
+=======
+}
+
+.links a:hover, .links .forgot {
+    color: #e76f51;
+}
+
+@media (max-width: 850px) {
+    .auth-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1.5rem 0;
+    }
+    .form-section {
+        max-width: 95vw;
+    }
+}
+
+@media (max-width: 500px) {
+    .form-section {
+        padding: 1rem 0.3rem 1rem 0.3rem;
+    }
+    .auth-form h2 {
+        font-size: 1.1rem;
+    }
+>>>>>>> 15f178a438fc5261f31e64ded50d833b47d28330
 }
 
 .links a:hover, .links .forgot {
