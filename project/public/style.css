@@ -21,6 +21,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.4s ease, color 0.4s ease;
+  min-height: 100vh;
 }
 
 /* Dark Mode Body */
@@ -38,6 +39,7 @@ body.dark-mode {
   padding: 3.5rem 4rem;
   box-shadow: 0 10px 30px var(--shadow-light);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  outline-offset: 4px;
 }
 
 /* Dark Mode Container */
@@ -57,7 +59,8 @@ textarea {
   font-weight: 500;
   color: var(--text-light);
   background-color: var(--card-light);
-  transition: border-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out, background-color 0.35s ease;
+  transition: border-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out,
+    background-color 0.35s ease;
 }
 
 /* Inputs in Dark Mode */
@@ -67,6 +70,15 @@ body.dark-mode textarea {
   color: var(--text-dark);
   background-color: var(--card-dark);
   border-color: #555;
+}
+
+/* Focus styles for accessibility */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color) !important;
+  outline: none;
+  box-shadow: 0 0 5px var(--primary-color);
 }
 
 /* Placeholder Text */
@@ -97,12 +109,16 @@ button.btn-primary {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   color: #fff;
 }
+
 button.btn-primary:hover,
 button.btn-primary:focus {
   background-color: #0049a6;
   border-color: #0049a6;
-  box-shadow: 0 8px 15px rgb(15 98 254 / 0.6);
+  box-shadow: 0 8px 20px rgb(15 98 254 / 0.7);
+  outline: none;
 }
+
+/* Dark mode primary button */
 body.dark-mode button.btn-primary {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
@@ -113,10 +129,14 @@ button.btn-success {
   background-color: var(--success-color);
   border-color: var(--success-color);
   color: #fff;
+  transition: background-color 0.3s ease;
 }
-button.btn-success:hover {
+
+button.btn-success:hover,
+button.btn-success:focus {
   background-color: #0b4d29;
   border-color: #0b4d29;
+  outline: none;
 }
 
 /* Danger Button */
@@ -124,10 +144,14 @@ button.btn-danger {
   background-color: var(--danger-color);
   border-color: var(--danger-color);
   color: #fff;
+  transition: background-color 0.3s ease;
 }
-button.btn-danger:hover {
+
+button.btn-danger:hover,
+button.btn-danger:focus {
   background-color: #911515;
   border-color: #911515;
+  outline: none;
 }
 
 /* Outline Secondary Button */
@@ -135,11 +159,15 @@ button.btn-outline-secondary {
   color: var(--primary-color);
   border: 2px solid var(--primary-color);
   background-color: transparent;
+  transition: background-color 0.3s ease;
 }
-button.btn-outline-secondary:hover {
+
+button.btn-outline-secondary:hover,
+button.btn-outline-secondary:focus {
   background-color: #e1eaff;
   color: #0049a6;
   border-color: #0049a6;
+  outline: none;
 }
 
 /* Cards Styles */
@@ -149,7 +177,10 @@ button.btn-outline-secondary:hover {
   transition: background-color 0.3s ease, color 0.3s ease;
   background-color: var(--card-light);
   color: var(--text-light);
+  display: flex;
+  flex-direction: column;
 }
+
 body.dark-mode .card {
   background-color: var(--card-dark);
   color: var(--text-dark);
@@ -159,35 +190,104 @@ body.dark-mode .card {
 .table {
   border-radius: 12px;
   overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 body.dark-mode .table {
   background-color: #2a2a2a;
   color: var(--text-dark);
 }
+
 .table-primary {
   background-color: var(--primary-color);
   color: #fff;
 }
+
 body.dark-mode .table-primary {
   background-color: #0049a6;
   color: #fff;
 }
 
+/* Table Rows hover */
+.table tbody tr:hover {
+  background-color: rgba(15, 98, 254, 0.1);
+  cursor: pointer;
+}
+
 /* Responsive Tweaks */
-@media(max-width: 768px) {
+@media (max-width: 768px) {
   .container {
     padding: 2rem 2.2rem;
     margin-top: 30px;
   }
+
   input,
   select,
   button {
     font-size: 1rem !important;
     padding: 12px 15px !important;
   }
+
   .table th,
   .table td {
     padding: 12px 14px !important;
     font-size: 1rem;
   }
+}
+
+/* Smooth transition on inputs and buttons */
+input,
+select,
+textarea,
+button {
+  transition: all 0.3s ease;
+}
+
+/* Accessibility focus outline for keyboard users */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Enhance card headings */
+.card h4 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Add subtle hover animation on buttons */
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Add shadow on container hover */
+.container:hover {
+  box-shadow: 0 15px 40px var(--shadow-light);
+}
+
+/* Scrollbar styling for better UX */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--background-light);
+}
+
+body.dark-mode::-webkit-scrollbar-track {
+  background: var(--background-dark);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 20px;
+  border: 3px solid var(--background-light);
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+  border: 3px solid var(--background-dark);
 }
