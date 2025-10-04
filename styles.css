@@ -95,8 +95,6 @@ body {
     color: #fff;
     text-decoration: none;
     transition: color 0.2s;
-<<<<<<< HEAD
-=======
 }
 
 .links a:hover, .links .forgot {
@@ -121,7 +119,6 @@ body {
     .auth-form h2 {
         font-size: 1.1rem;
     }
->>>>>>> 15f178a438fc5261f31e64ded50d833b47d28330
 }
 
 .links a:hover, .links .forgot {
