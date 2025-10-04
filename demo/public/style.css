@@ -1,0 +1,193 @@
+:root {
+  --primary-color: #0f62fe;
+  --success-color: #198754;
+  --danger-color: #d32f2f;
+  --background-light: #eff5fb;
+  --background-dark: #121212;
+  --text-light: #222;
+  --text-dark: #eee;
+  --card-light: #ffffff;
+  --card-dark: #1f1f1f;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.7);
+}
+
+/* Base Body Styles */
+body {
+  background-color: var(--background-light);
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Dark Mode Body */
+body.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+/* Container Styling */
+.container {
+  margin-top: 60px;
+  max-width: 950px;
+  background-color: var(--card-light);
+  border-radius: 14px;
+  padding: 3.5rem 4rem;
+  box-shadow: 0 10px 30px var(--shadow-light);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark Mode Container */
+body.dark-mode .container {
+  background-color: var(--card-dark);
+  box-shadow: 0 10px 30px var(--shadow-dark);
+}
+
+/* Inputs, Selects, Textarea */
+input,
+select,
+textarea {
+  border-radius: 10px !important;
+  border: 1.8px solid #bbb !important;
+  padding: 14px 18px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-light);
+  background-color: var(--card-light);
+  transition: border-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out, background-color 0.35s ease;
+}
+
+/* Inputs in Dark Mode */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  color: var(--text-dark);
+  background-color: var(--card-dark);
+  border-color: #555;
+}
+
+/* Placeholder Text */
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+/* Placeholder in Dark Mode */
+body.dark-mode input::placeholder,
+body.dark-mode select::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #bbb;
+}
+
+/* Buttons Styles */
+button.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  font-weight: 700;
+  padding: 14px 18px;
+  font-size: 1.15rem;
+  border-radius: 12px;
+  letter-spacing: 0.8px;
+  box-shadow: 0 5px 12px rgb(15 98 254 / 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  color: #fff;
+}
+button.btn-primary:hover,
+button.btn-primary:focus {
+  background-color: #0049a6;
+  border-color: #0049a6;
+  box-shadow: 0 8px 15px rgb(15 98 254 / 0.6);
+}
+body.dark-mode button.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Success Button */
+button.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: #fff;
+}
+button.btn-success:hover {
+  background-color: #0b4d29;
+  border-color: #0b4d29;
+}
+
+/* Danger Button */
+button.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  color: #fff;
+}
+button.btn-danger:hover {
+  background-color: #911515;
+  border-color: #911515;
+}
+
+/* Outline Secondary Button */
+button.btn-outline-secondary {
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  background-color: transparent;
+}
+button.btn-outline-secondary:hover {
+  background-color: #e1eaff;
+  color: #0049a6;
+  border-color: #0049a6;
+}
+
+/* Cards Styles */
+.card {
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(15, 98, 254, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--card-light);
+  color: var(--text-light);
+}
+body.dark-mode .card {
+  background-color: var(--card-dark);
+  color: var(--text-dark);
+}
+
+/* Table Styles */
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+body.dark-mode .table {
+  background-color: #2a2a2a;
+  color: var(--text-dark);
+}
+.table-primary {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+body.dark-mode .table-primary {
+  background-color: #0049a6;
+  color: #fff;
+}
+
+/* Responsive Tweaks */
+@media(max-width: 768px) {
+  .container {
+    padding: 2rem 2.2rem;
+    margin-top: 30px;
+  }
+  input,
+  select,
+  button {
+    font-size: 1rem !important;
+    padding: 12px 15px !important;
+  }
+  .table th,
+  .table td {
+    padding: 12px 14px !important;
+    font-size: 1rem;
+  }
+}
