@@ -6,83 +6,97 @@ body {
     min-height: 100vh;
 }
 
-.login-main {
+.signup-main {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login-form {
+.signup-form {
     background: transparent;
     border-radius: 30px;
     min-width: 330px;
     max-width: 375px;
     width: 90vw;
-    padding: 2.3rem 1.5rem 1.5rem 1.5rem;
+    padding: 2.5rem 1.5rem 1.2rem 1.5rem;
     box-sizing: border-box;
     border: 2.5px solid #fff;
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
-    box-shadow: 0 0 24px #0007;
+    box-shadow: 0 0 24px #0008;
 }
 
-.login-form h2 {
-    font-size: 1.3rem;
+.admin-note {
+    color: #e76f51;
+    font-size: 0.95rem;
+    margin-bottom: -0.5rem;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.signup-form h2 {
+    text-align: center;
+    font-size: 1.26rem;
     margin-bottom: 1rem;
+    margin-top: 0.5rem;
     color: #fff;
     font-weight: 600;
-    letter-spacing: 1.5px;
-    text-align: center;
+    letter-spacing: 1.3px;
 }
 
-.login-form input {
+.signup-form input,
+.signup-form select {
     background: transparent;
     color: #fff;
     border: 2px solid #fff;
-    padding: 0.9rem 0.85rem;
+    padding: 0.9rem 1rem;
     font-size: 1rem;
     border-radius: 8px;
     outline: none;
-    margin-bottom: 0.4rem;
-    letter-spacing: 0.8px;
+    margin-bottom: 0.3rem;
     transition: border 0.2s;
 }
 
-.login-form input:focus {
+.signup-form input:focus,
+.signup-form select:focus {
     border-color: #e76f51;
 }
 
-.login-btn {
+.signup-form select {
+    cursor: pointer;
+}
+
+.signup-btn {
     background: #fff;
     color: #181818;
     font-weight: 600;
     padding: 0.9rem;
     border-radius: 8px;
-    font-size: 1rem;
-    margin-top: 0.5rem;
+    font-size: 1.01rem;
+    margin-top: 0.6rem;
     border: none;
     cursor: pointer;
     outline: none;
-    transition: background 0.18s, color 0.18s;
+    transition: background 0.17s, color 0.17s;
 }
 
-.login-btn:hover {
+.signup-btn:hover {
     background: #e76f51;
     color: #fff;
 }
 
-.login-links {
+.signup-links {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.15rem;
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
 }
 
-.login-links a {
+.signup-links .login-link {
     color: #fff;
     text-decoration: none;
     font-size: 1rem;
@@ -90,25 +104,25 @@ body {
     transition: color 0.21s;
 }
 
-.signup-link:hover,
-.forgot-link:hover {
+.signup-links .login-link:hover {
     color: #e76f51;
 }
 
 @media (max-width: 500px) {
-    .login-form {
+    .signup-form {
         min-width: unset;
         padding: 1.1rem 0.4rem 1rem 0.4rem;
     }
-    .login-form h2 {
+    .signup-form h2 {
         font-size: 1.08rem;
     }
-    .login-btn {
-        font-size: 0.97rem;
-        padding: 0.77rem;
-    }
-    .login-form input {
+    .signup-btn {
         font-size: 0.98rem;
+        padding: 0.78rem;
+    }
+    .signup-form input,
+    .signup-form select {
+        font-size: 0.97rem;
         padding: 0.7rem 0.8rem;
     }
 }
