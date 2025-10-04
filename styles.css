@@ -85,13 +85,10 @@ body {
 .login-links a {
     color: #fff;
     text-decoration: none;
-<<<<<<< HEAD
     transition: color 0.2s;
-=======
     font-size: 1rem;
     margin: 0.15rem 0;
     transition: color 0.21s;
->>>>>>> d72d1432ef14ff13c735f58fb43efe2561c317a2
 }
 
 .signup-link:hover,
