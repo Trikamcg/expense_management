@@ -1,47 +1,62 @@
-export function handleExpenseForm(expenseForm, currentUser, currentRole, expenses, updateHistory, updateSummary, updateApprovals, showAlert) {
-  expenseForm.addEventListener('submit', e => {
+// Requires: localStorage.getItem('userId') is set after login
+
+export function handleExpenseForm(expenseForm, expenses, updateHistory, updateSummary, updateApprovals, showAlert) {
+  expenseForm.addEventListener('submit', async e => {
     e.preventDefault();
-    const desc = expenseForm.querySelector('#exp-desc').value.trim();
+    const title = expenseForm.querySelector('#exp-desc').value.trim();
     const amount = parseFloat(expenseForm.querySelector('#exp-amount').value);
     const category = expenseForm.querySelector('#exp-category').value;
     const date = expenseForm.querySelector('#exp-date').value;
+    const userId = localStorage.getItem('userId');
 
-    if (!desc || isNaN(amount) || amount <= 0 || !category || !date) {
+    if (!title || isNaN(amount) || amount <= 0 || !category || !date) {
       alert('Please fill all fields correctly!');
       return;
     }
+    if (!userId) {
+      alert('User ID is missing. Please login again!');
+      return;
+    }
 
-    expenses.push({
-      id: Date.now(),
-      user: currentUser,
-      desc,
-      amount,
-      category,
-      date,
-      status: currentRole === "employee" ? "Pending" : "Approved"
-    });
+    // API call here instead of local push, OR if you keep local, add userId field
+    try {
+      // If using local for demo/mock:
+      expenses.push({
+        id: Date.now(),
+        userId: userId,
+        title,
+        amount,
+        category,
+        date,
+        status: "Pending"
+      });
 
-    showAlert("Expense added successfully");
-    updateHistory();
-    updateSummary();
+      showAlert("Expense added successfully");
+      updateHistory();
+      updateSummary();
 
-    if (["manager", "admin"].includes(currentRole)) updateApprovals();
-    expenseForm.reset();
+      if (typeof updateApprovals === "function") updateApprovals();
+      expenseForm.reset();
+    } catch (err) {
+      showAlert("Failed to add expense: " + err.message, "danger");
+    }
   });
 }
 
-export function updateHistory(expenses, currentUser, historyList) {
-  const history = expenses.filter(e => e.user === currentUser);
+export function updateHistory(expenses, historyList) {
+  const userId = localStorage.getItem('userId');
+  const history = expenses.filter(e => e.userId === userId);
   historyList.innerHTML = "";
   history.forEach(exp => {
     const row = document.createElement('tr');
-    row.innerHTML = `<td>${exp.desc}</td><td>${exp.category}</td><td>₹${exp.amount.toFixed(2)}</td><td>${exp.date}</td><td>${exp.status}</td>`;
+    row.innerHTML = `<td>${exp.title}</td><td>${exp.category}</td><td>₹${exp.amount.toFixed(2)}</td><td>${exp.date}</td><td>${exp.status}</td>`;
     historyList.appendChild(row);
   });
 }
 
-export function updateSummary(expenses, currentUser, sumTotal, sumApproved, sumRejected) {
-  const history = expenses.filter(e => e.user === currentUser);
+export function updateSummary(expenses, sumTotal, sumApproved, sumRejected) {
+  const userId = localStorage.getItem('userId');
+  const history = expenses.filter(e => e.userId === userId);
   const total = history.reduce((acc, exp) => acc + exp.amount, 0);
   const approved = history.filter(e => e.status === "Approved").reduce((acc, exp) => acc + exp.amount, 0);
   const rejected = history.filter(e => e.status === "Rejected").reduce((acc, exp) => acc + exp.amount, 0);
@@ -57,7 +72,7 @@ export function updateApprovals(expenses, approvalList, approveExpense, rejectEx
   pending.forEach(exp => {
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td>${exp.desc}</td>
+      <td>${exp.title}</td>
       <td>${exp.category}</td>
       <td>₹${exp.amount.toFixed(2)}</td>
       <td>${exp.date}</td>

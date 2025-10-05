@@ -49,8 +49,8 @@ function showAlert(message, type = 'success', timeout = 3000) {
 function getFilteredExpenses() {
   const query = searchInput.value.toLowerCase();
   return expenses.filter(exp =>
-    exp.user === currentUser &&
-    (exp.desc.toLowerCase().includes(query) || exp.category.toLowerCase().includes(query))
+    exp.userId === localStorage.getItem('userId') && // Filter by logged-in user
+    (exp.title.toLowerCase().includes(query) || exp.category.toLowerCase().includes(query))
   );
 }
 
@@ -64,7 +64,7 @@ function renderExpensesPage(page) {
   pagedExpenses.forEach(exp => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${exp.desc}</td>
+      <td>${exp.title}</td>
       <td>${exp.category}</td>
       <td>₹${exp.amount.toFixed(2)}</td>
       <td>${exp.date}</td>
@@ -161,9 +161,11 @@ authForm.addEventListener('submit', async e => {
 
   try {
     const data = await loginAPI(usernameInput.value.trim(), passwordInput.value);
-    localStorage.setItem('token', data.token);
+    localStorage.setItem('token', data.token || '');
     localStorage.setItem('username', data.username);
     localStorage.setItem('role', data.role);
+    // Store userId from backend
+    localStorage.setItem('userId', data.userId);
     currentUser = data.username;
     currentRole = data.role;
 
@@ -181,12 +183,12 @@ authForm.addEventListener('submit', async e => {
 
 expenseForm.addEventListener('submit', async e => {
   e.preventDefault();
-  const desc = document.getElementById("exp-desc").value.trim();
+  const title = document.getElementById("exp-desc").value.trim(); // Send as 'title'
   const amount = parseFloat(document.getElementById("exp-amount").value);
   const category = document.getElementById("exp-category").value;
   const date = document.getElementById("exp-date").value;
 
-  if (!desc) {
+  if (!title) {
     showAlert("Please enter description", "danger");
     return;
   }
@@ -204,7 +206,9 @@ expenseForm.addEventListener('submit', async e => {
   }
 
   try {
-    await addExpenseAPI({ desc, amount, category, date });
+    // Get userId from storage and send with expense
+    const userId = localStorage.getItem('userId');
+    await addExpenseAPI({ userId, title, amount, category, date });
     showAlert("Expense added successfully");
     updateExpensesFromAPI();
     e.target.reset();
@@ -214,7 +218,8 @@ expenseForm.addEventListener('submit', async e => {
 });
 
 function updateSummary() {
-  const history = expenses.filter(e => e.user === currentUser);
+  const userId = localStorage.getItem('userId');
+  const history = expenses.filter(e => e.userId === userId);
   const total = history.reduce((acc, exp) => acc + exp.amount, 0);
   const approved = history.filter(e => e.status === "Approved").reduce((acc, exp) => acc + exp.amount, 0);
   const rejected = history.filter(e => e.status === "Rejected").reduce((acc, exp) => acc + exp.amount, 0);
@@ -230,7 +235,7 @@ function updateApprovals() {
   pending.forEach(exp => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${exp.desc}</td>
+      <td>${exp.title}</td>
       <td>${exp.category}</td>
       <td>₹${exp.amount.toFixed(2)}</td>
       <td>${exp.date}</td>
